@@ -10,7 +10,6 @@
             width: 50vw;
             max-width: 1000px;
         }
-
     </style>
 </head>
 
@@ -32,7 +31,7 @@
             <p class="data-type"></p>
             <p class="data-sted"></p>
             <p class="data-pris"></p>
-            <button><a class="data-knap" href="">Køb Billet</a></button>
+            <a class="data-knap" href=""><button>Køb Billet</button></a>
             <img class="data-billede" alt="DataBillede" src="">
             <p class="data-info"></p>
             <p class="data-praktisk"></p>
@@ -76,7 +75,7 @@
                 klon.querySelector(".data-type").innerHTML = eventsAndet.acf.type;
                 klon.querySelector(".data-sted").innerHTML = "Eventet foregår i " + eventsAndet.acf.sted;
                 klon.querySelector(".data-pris").innerHTML = "Pris: " + eventsAndet.acf.pris + "kr.";
-                klon.querySelector(".data-knap").innerHTML = eventsAndet.acf.bestilkob_knap;
+                klon.querySelector(".data-knap").href = eventsAndet.acf.bestilkob_knap;
                 klon.querySelector(".data-billede").src = eventsAndet.acf.billede;
                 klon.querySelector(".data-info").innerHTML = eventsAndet.acf.info;
                 klon.querySelector(".data-praktisk").innerHTML = eventsAndet.acf.praktisk;
@@ -84,7 +83,6 @@
                 dest.appendChild(klon);
             })
         }
-
     </script>
 </body>
 
