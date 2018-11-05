@@ -19,17 +19,17 @@
     <template class="temp">
 
         <article class="articleContainer">
-			<img class="data-splash" alt="Splash Image" src="">
+            <img class="data-splash" alt="Splash Image" src="">
             <h2 id="data-overskrift"></h2>
-    <p class ="data-tekst"></p>
-			<img class="data-billede" alt="Info billede" src="">
-			<p class="data-kontakt"></p>
-			<a class="data-website" href"">Besøg vores website</a>
-			<a class="data-facebook" href""><img src="fblogo.png" width="100" height="100" alt="facebook logo"/></a>
-			<a class="data-instagram" href""><img src="instalogo.png" width="100" height="100" alt="instagram logo"/></a>
-			
-			<iframe class="data-video" width="420" height="315" style="border:none" src=""></iframe>
-</iframe>
+            <p class="data-tekst"></p>
+            <img class="data-billede" alt="Info billede" src="">
+            <p class="data-kontakt"></p>
+            <a class="data-website" href"">Besøg vores website</a>
+            <a class="data-facebook" href""><img src="fblogo.png" width="100" height="100" alt="facebook logo" /></a>
+            <a class="data-instagram" href""><img src="instalogo.png" width="100" height="100" alt="instagram logo" /></a>
+
+            <iframe class="data-video" width="420" height="315" style="border:none" src=""></iframe>
+            </iframe>
 
         </article>
     </template>
@@ -59,16 +59,17 @@
             jsonFile.forEach(articleFunction => {
 
                 let klon = temp.cloneNode(true).content;
-				/*Tager videoens ID fra et almindeligt youtube-link*/
-				videoLink = articleFunction.acf.video;
-				videoId =  videoLink.replace("https://www.youtube.com/watch?v=", "https://youtube.com/embed/");
-				
+                /*Tager videoens ID fra et almindeligt youtube-link*/
+                videoLink = articleFunction.acf.video;
+                videoId = videoLink.replace("https://www.youtube.com/watch?v=", "https://youtube.com/embed/");
+
                 klon.querySelector(".data-splash").src = articleFunction.acf.splash;
                 klon.querySelector("#data-overskrift").innerHTML = articleFunction.acf.overskrift;
-                klon.querySelector(".data-billede").src = articleFunction.acf.billede;
+                klon.querySelector(".data-billede").src = articleFunction.acf.billeder;
                 klon.querySelector(".data-tekst").innerHTML = articleFunction.acf.tekst;
+                klon.querySelector(".data-website").href = articleFunction.acf.website;
                 klon.querySelector(".data-kontakt").innerHTML = articleFunction.acf.kontakt;
-klon.querySelector(".data-video").src = videoId;
+                klon.querySelector(".data-video").src = videoId;
                 dest.appendChild(klon);
             })
         }
