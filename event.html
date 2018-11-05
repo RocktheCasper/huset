@@ -5,11 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Page</title>
-	<style>
-	
-		img {width: 50vw;
-			max-width: 1000px;}
-	</style>
+    <style>
+        img {
+            width: 50vw;
+            max-width: 1000px;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -34,8 +36,8 @@
             <img class="data-billede" alt="DataBillede" src="">
             <p class="data-info"></p>
             <p class="data-praktisk"></p>
-			<iframe class="data-video" width="420" height="315" style="border:none" src=""></iframe>
-</iframe>
+            <iframe class="data-video" width="420" height="315" style="border:none" src=""></iframe>
+            </iframe>
 
         </article>
     </template>
@@ -65,9 +67,9 @@
             jsonFile.forEach(eventsAndet => {
 
                 let klon = temp.cloneNode(true).content;
-				/*Tager videoens ID fra et almindeligt youtube-link*/
-				videoLink = eventsAndet.acf.video;
-				videoId =  videoLink.replace("https://www.youtube.com/watch?v=", "https://youtube.com/embed/");
+                /*Tager videoens ID fra et almindeligt youtube-link og sætter ind i et embed-link, så ethvert youtube-link kan indsættes i formularen*/
+                videoLink = eventsAndet.acf.video;
+                videoId = videoLink.replace("https://www.youtube.com/watch?v=", "https://youtube.com/embed/");
 
                 klon.querySelector(".data-dato").innerHTML = "Finder sted " + eventsAndet.acf.dato;
                 klon.querySelector(".data-tid").innerHTML = "Dørene åbner " + eventsAndet.acf.tidspunkt;
@@ -78,7 +80,7 @@
                 klon.querySelector(".data-billede").src = eventsAndet.acf.billede;
                 klon.querySelector(".data-info").innerHTML = eventsAndet.acf.info;
                 klon.querySelector(".data-praktisk").innerHTML = eventsAndet.acf.praktisk;
-klon.querySelector(".data-video").src = videoId;
+                klon.querySelector(".data-video").src = videoId;
                 dest.appendChild(klon);
             })
         }

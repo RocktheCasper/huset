@@ -59,7 +59,7 @@
             jsonFile.forEach(articleFunction => {
 
                 let klon = temp.cloneNode(true).content;
-                /*Tager videoens ID fra et almindeligt youtube-link*/
+                /*Tager videoens ID fra et almindeligt youtube-link og sætter ind i et embed-link, så ethvert youtube-link kan indsættes i formularen*/
                 videoLink = articleFunction.acf.video;
                 videoId = videoLink.replace("https://www.youtube.com/watch?v=", "https://youtube.com/embed/");
 
@@ -76,6 +76,7 @@
                 dest.appendChild(klon);
             })
         }
+
     </script>
 </body>
 
