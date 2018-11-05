@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>Article Page</title>
 </head>
 
 <body>
@@ -18,19 +18,17 @@
 
     <template class="temp">
 
-        <article class="eventContainer">
+        <article class="articleContainer">
+			<img class="data-splash" alt="Splash Image" src="">
             <h2 id="data-overskrift"></h2>
-            <p class="data-dato"></p>
-            <p class="data-tid"></p>
-            <p class="data-type"></p>
-            <p class="data-sted"></p>
-            <p class="data-pris"></p>
-            <button><a class="data-knap" href="">Køb Billet</a></button>
-            <img class="data-billede" alt="DataBillede" src="">
-            <p class="data-info"></p>
-            <p class="data-praktisk"></p>
-			<div class="data-video"><iframe width="420" height="315"
-src=""></div>
+    <p class ="data-tekst"></p>
+			<img class="data-billede" alt="Info billede" src="">
+			<p class="data-kontakt"></p>
+			<a class="data-website" href"">Besøg vores website</a>
+			<a class="data-facebook" href""><img src="fblogo.png" width="100" height="100" alt="facebook logo"/></a>
+			<a class="data-instagram" href""><img src="instalogo.png" width="100" height="100" alt="instagram logo"/></a>
+			
+			<iframe class="data-video" width="420" height="315" style="border:none" src=""></iframe>
 </iframe>
 
         </article>
@@ -47,31 +45,30 @@ src=""></div>
 
         async function getJson() {
 
-            let myJson = await fetch("http://fuglevik.de/2.%20semester/huset/wordpress/index.php/wp-json/wp/v2/event");
+            let myJson = await fetch("http://fuglevik.de/2.%20semester/huset/wordpress/index.php/wp-json/wp/v2/article");
 
             jsonFile = await myJson.json();
-            showEvents();
+            showArticle();
         }
 
-        function showEvents() {
+        function showArticle() {
 
             let dest = document.querySelector(".data-container"),
                 temp = document.querySelector(".temp");
 
-            jsonFile.forEach(eventsAndet => {
+            jsonFile.forEach(articleFunction => {
 
                 let klon = temp.cloneNode(true).content;
-
-                klon.querySelector(".data-dato").innerHTML = "Finder sted " + eventsAndet.acf.dato;
-                klon.querySelector(".data-tid").innerHTML = "Dørene åbner " + eventsAndet.acf.tidspunkt;
-                klon.querySelector(".data-type").innerHTML = eventsAndet.acf.type;
-                klon.querySelector(".data-sted").innerHTML = "Eventet foregår i " + eventsAndet.acf.sted;
-                klon.querySelector(".data-pris").innerHTML = "Pris: " + eventsAndet.acf.pris + "kr.";
-                klon.querySelector(".data-knap").innerHTML = eventsAndet.acf.bestilkob_knap;
-                klon.querySelector(".data-billede").src = eventsAndet.acf.billede;
-                klon.querySelector(".data-info").innerHTML = eventsAndet.acf.info;
-                klon.querySelector(".data-praktisk").innerHTML = eventsAndet.acf.praktisk;
-klon.querySelector(".data-video").src = eventsAndet.acf.video;
+				/*Tager videoens ID fra et almindeligt youtube-link*/
+				videoLink = articleFunction.acf.video;
+				videoId =  videoLink.replace("https://www.youtube.com/watch?v=", "https://youtube.com/embed/");
+				
+                klon.querySelector(".data-splash").src = articleFunction.acf.splash;
+                klon.querySelector("#data-overskrift").innerHTML = articleFunction.acf.overskrift;
+                klon.querySelector(".data-billede").src = articleFunction.acf.billede;
+                klon.querySelector(".data-tekst").innerHTML = articleFunction.acf.tekst;
+                klon.querySelector(".data-kontakt").innerHTML = articleFunction.acf.kontakt;
+klon.querySelector(".data-video").src = videoId;
                 dest.appendChild(klon);
             })
         }
