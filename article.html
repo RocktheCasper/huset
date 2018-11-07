@@ -5,12 +5,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Article Page</title>
+
 </head>
 
 <body>
 
     <main class="container">
-        <section class="data-container"></section>
+        <section class="data-container">
+            <article class="articleContainer">
+                <img class="data-splash" alt="Splash Image" src="">
+                <h2 id="data-overskrift"></h2>
+                <p class="data-tekst"></p>
+                <img class="data-billede" alt="Info billede" width="300" src="">
+                <p class="data-kontakt"></p>
+                <a class="data-website" href"">Besøg vores website</a>
+                <a class="data-facebook" href""><img src="fblogo.png" width="100" height="100" alt="facebook logo" /></a>
+                <a class="data-instagram" href""><img src="instalogo.png" width="100" height="100" alt="instagram logo" /></a>
+
+                <iframe class="data-video" width="420" height="315" style="border:none" src=""></iframe>
+
+
+            </article>
+        </section>
     </main>
 
 
@@ -35,47 +51,52 @@
     </template>
 
     <script>
-        let dest = document.querySelector(".data-container");
-
-        let jsonFile;
-
+        let urlParams = new URLSearchParams(window.location.search);
+        let id = urlParams.get("id");
 
 
+        console.log(id);
+
+
+
+
+
+        let articles;
         document.addEventListener("DOMContentLoaded", getJson);
 
         async function getJson() {
 
-            let myJson = await fetch("http://fuglevik.de/2.%20semester/huset/wordpress/index.php/wp-json/wp/v2/article");
+            let myJson = await fetch("http://fuglevik.de/2.%20semester/huset/wordpress/index.php/wp-json/wp/v2/article"),
+                articles = await myJson.json();
 
-            jsonFile = await myJson.json();
             showArticle();
         }
 
         function showArticle() {
 
-            let dest = document.querySelector(".data-container"),
-                temp = document.querySelector(".temp");
+            let dest = document.querySelector(".data-container");
 
-            jsonFile.forEach(articleFunction => {
+            /*Tager videoens ID fra et almindeligt youtube-link og sætter ind i et embed-link, så ethvert youtube-link kan indsættes i formularen*/
+            let videoLink = articleFunction.acf.video;
+            videoId = videoLink.replace("https://www.youtube.com/watch?v=", "https://youtube.com/embed/");
 
-                let klon = temp.cloneNode(true).content;
-                /*Tager videoens ID fra et almindeligt youtube-link og sætter ind i et embed-link, så ethvert youtube-link kan indsættes i formularen*/
-                videoLink = articleFunction.acf.video;
-                videoId = videoLink.replace("https://www.youtube.com/watch?v=", "https://youtube.com/embed/");
+            articles.forEach(articleFunction => {
+                    if (article.id == id) {
 
-                klon.querySelector(".data-splash").src = articleFunction.acf.splash;
-                klon.querySelector("#data-overskrift").innerHTML = articleFunction.acf.overskrift;
-                klon.querySelector(".data-billede").src = articleFunction.acf.billeder;
-                klon.querySelector(".data-tekst").innerHTML = articleFunction.acf.tekst;
-                klon.querySelector(".data-website").href = articleFunction.acf.website;
-                klon.querySelector(".data-facebook").href = articleFunction.acf.facebook;
-                klon.querySelector(".data-instagram").href = articleFunction.acf.instagram;
 
-                klon.querySelector(".data-kontakt").innerHTML = articleFunction.acf.kontakt;
-                klon.querySelector(".data-video").src = videoId;
-                dest.appendChild(klon);
-            })
-        }
+
+                        dest.querySelector(".data-splash").src = articleFunction.acf.splash;
+                        dest.querySelector("#data-overskrift").innerHTML = articleFunction.acf.overskrift;
+                        dest.querySelector(".data-billede").src = articleFunction.acf.billeder;
+                        dest.querySelector(".data-tekst").innerHTML = articleFunction.acf.tekst;
+                        dest.querySelector(".data-website").href = articleFunction.acf.website;
+                        dest.querySelector(".data-facebook").href = articleFunction.acf.facebook;
+                        dest.querySelector(".data-instagram").href = articleFunction.acf.instagram;
+
+                        dest.querySelector(".data-kontakt").innerHTML = articleFunction.acf.kontakt;
+                        dest.querySelector(".data-video").src = videoId;
+                    })
+            }
     </script>
 </body>
 
